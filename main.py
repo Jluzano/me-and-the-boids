@@ -5,19 +5,20 @@ import random
 boids = []
 
 class Boid:
-    def __init__(self, x, y, size, canvas):
+    def __init__(self, x, y, size, speed, canvas):
         self.x = x
         self.y = y
         self.size = size
+        self.speed = speed
         self.canvas = canvas
         # Top left corner of the oval at (x - size, y - size), bottom right corner at (x + size, y + size)
         self.circle = canvas.create_oval(x - size, y - size, x + size, y + size, fill='white')
 
     # Movement function for the boid
     def move(self):
-        self.x += 10
-        self.y += 10
-        self.canvas.move(self.circle, 1, 1)
+        self.x += self.speed
+        self.y += self.speed
+        self.canvas.move(self.circle, self.speed, self.speed)
 
 def update():
     for boid in boids:
@@ -36,7 +37,7 @@ for i in range(10):
     x = random.randint(0, 800)
     y = random.randint(0, 600)
     # Determining the size of the boid
-    boid = Boid(x, y, 10, canvas)
+    boid = Boid(x, y, 10, 1, canvas)
     boids.append(boid)
 
 update()
