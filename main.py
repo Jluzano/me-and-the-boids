@@ -15,8 +15,9 @@ class Boid:
 
     # Movement function for the boid
     def move(self):
-        self.x += self.x
-        self.y += self.y
+        self.x += 10
+        self.y += 10
+        self.canvas.move(self.circle, 1, 1)
 
 def update():
     for boid in boids:
