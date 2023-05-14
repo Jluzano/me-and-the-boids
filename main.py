@@ -18,6 +18,10 @@ class Boid:
     def move(self):
         self.x += self.speed
         self.y += self.speed
+        if self.x > self.canvas.winfo_width() - self.size or self.x < 0 + self.size:
+            self.speed = -self.speed
+        if self.y > self.canvas.winfo_height() - self.size or self.y < 0 + self.size:
+            self.speed = -self.speed
         self.canvas.move(self.circle, self.speed, self.speed)
 
 def update():
