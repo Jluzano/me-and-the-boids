@@ -30,14 +30,15 @@ class Boid:
         # Updates the boid on the canvas
         self.canvas.move(self.circle, self.speedx, self.speedy)
     
-    def alignment(self):
+    # The boids can become a flock, but once they reach an edge it's all over
+    def alignment(self, radius):
         avgx = 0
         avgy = 0
         count = 0
         for boid in boids:
             # Calculates the distance between itself and other boids around it
             distance = math.dist([self.x, self.y], [boid.x, boid.y])
-            if boid != self and distance < 50:
+            if boid != self and distance < radius:
                 avgx += boid.speedx
                 avgy += boid.speedy
                 count += 1
@@ -48,13 +49,10 @@ class Boid:
             self.speedx = avgx
             self.speedy = avgy
                 
-
-        
-
 def update():
     # Constantly calls the move function to move the boids
     for boid in boids:
-        boid.alignment()
+        boid.alignment(radius)
         boid.move()
     canvas.after(10, update)
 
@@ -66,12 +64,14 @@ canvas.pack()
 
 # Creating a number of boids
 for i in range(10):
+    speed = (1, 3)
+    radius = 50
     # Spawns boids in random places on the canvas
     x = random.randint(0, 800)
     y = random.randint(0, 600)
     # Set a random velocity to each boid
-    randx = random.randint(3, 5)
-    randy = random.randint(3, 5)
+    randx = random.randint(speed[0], speed[1])
+    randy = random.randint(speed[0], speed[1])
     # Determining the size of the boid
     boid = Boid(x, y, 10, randx, randy, canvas)
     boids.append(boid)
